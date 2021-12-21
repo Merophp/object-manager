@@ -1,0 +1,19 @@
+{
+  "name": "merophp/object-manager",
+  "description": "Object manager with dependency injection for the Merophp Framework",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Robert Becker",
+      "role": "Lead"
+    }
+  ],
+  "autoload": {
+    "psr-4": {"Merophp\\ObjectManager\\": "src/"}
+  },
+  "require": {
+    "php": ">=7.4",
+    "merophp/singleton": "0.1-alpha",
+    "merophp/reflection": "0.1-alpha"
+  }
+}
