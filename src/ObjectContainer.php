@@ -6,7 +6,8 @@ use Merophp\ObjectManager\ClassInfo\ClassInfo;
 use Merophp\ObjectManager\ClassInfo\Factory\ClassInfoFactory;
 use Merophp\ObjectManager\Exception\CannotBuildObjectException;
 
-class ObjectContainer{
+class ObjectContainer
+{
 
 	/**
 	 * @var array
@@ -190,10 +191,11 @@ class ObjectContainer{
 		return array_key_exists($className, self::$singletonInstances);
 	}
 
-	/**
-	 * @param string $className
-	 */
-	public static function getSingletonInstance(string $className)
+    /**
+     * @param string $className
+     * @return object
+     */
+	public static function getSingletonInstance(string $className): object
     {
 		return self::$singletonInstances[$className];
 	}

@@ -5,7 +5,6 @@ use DateTime;
 use Exception;
 use ReflectionClass;
 use ReflectionException;
-use Merophp\Reflection\ClassReflection;
 use Merophp\Singleton\SingletonInterface;
 use Merophp\ObjectManager\ClassInfo\ClassInfo;
 use ReflectionParameter;
@@ -28,7 +27,7 @@ class ClassInfoFactory
             return new ClassInfo($className, [], [], false, false, []);
         }
         try {
-            $reflectedClass = new ClassReflection($className);
+            $reflectedClass = new ReflectionClass($className);
         } catch (Exception $e) {
             throw new Exception('Could not analyse class: "' . $className . '" maybe not loaded or no autoloader? ' . $e->getMessage());
         }
@@ -56,8 +55,8 @@ class ClassInfoFactory
             /* @var $reflectionParameter ReflectionParameter */
             $info = [];
             $info['name'] = $reflectionParameter->getName();
-            if ($reflectionParameter->getClass()) {
-                $info['dependency'] = $reflectionParameter->getClass()->getName();
+            if ($reflectionParameter->getType() && !$reflectionParameter->getType()->isBuiltin()) {
+                $info['dependency'] = $reflectionParameter->getType()->getName();
             }
 
             try {
@@ -86,10 +85,10 @@ class ClassInfoFactory
                 if ($reflectionMethod->isPublic() && $this->isNameOfInjectMethod($reflectionMethod->getName())) {
                     $reflectionParameter = $reflectionMethod->getParameters();
                     if (isset($reflectionParameter[0])) {
-                        if (!$reflectionParameter[0]->getClass()) {
+                        if (!$reflectionParameter[0]->getType() || $reflectionParameter[0]->getType()->isBuiltin()) {
                             throw new Exception('Method "' . $reflectionMethod->getName() . '" of class "' . $reflectedClass->getName() . '" is marked as setter for Dependency Injection, but does not have a type annotation');
                         }
-                        $result[$reflectionMethod->getName()] = $reflectionParameter[0]->getClass()->getName();
+                        $result[$reflectionMethod->getName()] = $reflectionParameter[0]->getType()->getName();
                     }
                 }
             }

@@ -8,7 +8,8 @@ use DateTime;
 use Merophp\Singleton\Singleton;
 use Merophp\Singleton\SingletonInterface;
 
-class ObjectManager extends Singleton implements ObjectManagerInterface{
+class ObjectManager extends Singleton implements ObjectManagerInterface
+{
 
 	/**
 	 * @var ?ObjectContainer
@@ -18,7 +19,8 @@ class ObjectManager extends Singleton implements ObjectManagerInterface{
 	/**
      * @param ObjectContainer $objectContainer
 	 */
-	public static function setObjectContainer(ObjectContainer $objectContainer){
+	public static function setObjectContainer(ObjectContainer $objectContainer)
+    {
 		self::$objectContainer = $objectContainer;
 	}
 
@@ -29,7 +31,8 @@ class ObjectManager extends Singleton implements ObjectManagerInterface{
      * @param string $className
      * @return false|mixed
      */
-	public static function get(string $className){
+	public static function get(string $className)
+    {
 		$arguments = func_get_args();
         array_shift($arguments);
         if ($className === DateTime::class) {

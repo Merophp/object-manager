@@ -13,7 +13,6 @@
   },
   "require": {
     "php": ">=7.4",
-    "merophp/singleton": "0.1-alpha",
-    "merophp/reflection": "0.1-alpha"
+    "merophp/singleton": "0.1.*"
   }
 }
